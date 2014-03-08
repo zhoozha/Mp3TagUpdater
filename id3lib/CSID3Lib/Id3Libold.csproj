@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C0E405B-FBE5-4949-8953-0B4AEB0D22B8}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace>Id3Lib</RootNamespace>
+    <AssemblyName>Id3Lib</AssemblyName>
+    <DelaySign>false</DelaySign>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>ID3Lib.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SharpZipLib, Version=0.4.0.0, Culture=neutral, PublicKeyToken=fbebc9694da332b7" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exceptions\InvalidStructureException.cs" />
+    <Compile Include="Exceptions\InvalidPaddingException.cs" />
+    <Compile Include="Frames\FramePopularimeter.cs" />
+    <Compile Include="Frames\FramePlayCounter.cs" />
+    <Compile Include="Frames\FrameUniqueIdentifier.cs" />
+    <Compile Include="Frames\FrameAttribute.cs" />
+    <Compile Include="Frames\IFrame.cs" />
+    <Compile Include="ID3\FrameDescription.cs" />
+    <Compile Include="ID3\TagHandler.cs" />
+    <Compile Include="Frames\FrameTextUserDef.cs" />
+    <Compile Include="Frames\FrameUrl.cs" />
+    <Compile Include="Utils\TextBuilder.cs" />
+    <Compile Include="ID3\ExtendedHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\FlagHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FramePicture.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\FrameFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameBinary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\FrameHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameFullText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameUnkown.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Frames\FrameUrlUserDef.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\Header.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\ID3v1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\InvalidFrameException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\InvalidTagException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Memory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Swap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Sync.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\FrameManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ID3\FrameModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\TagNotFoundException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documents\id3v2.3.0.htm" />
+    <Content Include="Documents\id3v2_4_0-frames.txt" />
+    <Content Include="Documents\id3v2_4_0-structure.txt" />
+    <Content Include="Documents\MP3 File Format.html" />
+    <Content Include="Library\SharpZipLib.dll">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ID3\ID3Diagram.cd" />
+    <None Include="Frames\FrameTypesDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
