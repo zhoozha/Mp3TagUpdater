@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MP3TagUpdater
@@ -43,19 +44,33 @@ namespace MP3TagUpdater
             MP3TagUpdater.Properties.Settings.Default.LastDirectory = dlg.SelectedPath;
         }
 
+        Task _convert;
+
         private void btnRun_Click(object sender, EventArgs e)
         {
             if (!Validate())
                 return;
             try
             {
+                if (_convert == null || _convert.Status == TaskStatus.Running)
+                {
+                    return;
+                }
                 btnRun.Enabled = false;
                 btnClose.Enabled = false;
                 progressBar1.Value = 0;
-                FolderConverter converter = new FolderConverter(chShowLog.Checked, chUpdateTag.Checked);
-                converter.LogEvent += new LogMsgHandler(converter_LogEvent);
-                converter.ProgressEvent += new ProgressHandler(converter_ProgressEvent);
-                converter.Convert(txtSource.Text, txtTarget.Text);   
+                //FolderConverter converter = new FolderConverter(chShowLog.Checked, chUpdateTag.Checked);
+                //converter.LogEvent += new LogMsgHandler(converter_LogEvent);
+                //converter.ProgressEvent += new ProgressHandler(converter_ProgressEvent);
+                _convert = new Task(() =>
+                {
+                    FolderConverter converter = new FolderConverter(chShowLog.Checked, chUpdateTag.Checked);
+                    converter.LogEvent += new LogMsgHandler(converter_LogEvent);
+                    converter.ProgressEvent += new ProgressHandler(converter_ProgressEvent);
+                    converter.Convert(txtSource.Text, txtTarget.Text);
+                });
+                _convert.Start();
+                //converter.Convert(txtSource.Text, txtTarget.Text);   
             }
             catch (Exception ex)
             {
