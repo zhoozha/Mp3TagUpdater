@@ -11,6 +11,7 @@ using Mp3Lib;
 using Id3Lib;
 using Mp3.Infrastructure;
 using Mp3.Infrastructure.Models;
+using Mp3.Infrastructure.Interfaces;
 
 namespace Modules.FolderConverter
 {
@@ -31,7 +32,7 @@ namespace Modules.FolderConverter
             public string target;
         }
 
-        public bool UpdateMp3Tag { get; set; }
+        public IMp3Settings ConversionOptions { get; private set; }
 
         public FolderConverter(ILoggerFacade logger, IUnityContainer container, IProgressFacade progress)
         {
@@ -126,7 +127,7 @@ namespace Modules.FolderConverter
                         File.Delete(path + file.target);
                     File.Copy(file.source, path + file.target, true);
                     File.SetAttributes(path + file.target, FileAttributes.Normal);
-                    if (UpdateMp3Tag)
+                    if (this.ConversionOptions.ProcessTags)
                         ProcessFile(path + file.target, converter);
                     Log(file.source + " is copied to " + file.target);
                     _current++;
@@ -173,14 +174,21 @@ namespace Modules.FolderConverter
                 tag.Composer = converter.Convert(tag.Composer);
                 tag.Song = converter.Convert(tag.Song);
                 tag.Title = converter.Convert(tag.Title);
+                tag.Genre = converter.Convert(tag.Genre);
+                tag.Comment = converter.Convert(tag.Comment);
+                tag.AlbumArtist = converter.Convert(tag.AlbumArtist);
+                tag.CopyRight = converter.Convert(tag.CopyRight);
+                if (this.ConversionOptions.DelUserTags)
+                    tag.UserDefined = null;
+                if (this.ConversionOptions.DelCopyRight)
+                    tag.CopyRight = null;
                 mp3File.Update();
             }
         }
 
-        public void Convert(string sourceFolder, string targetFolder, bool updateMp3Tag)
+        public void Convert(IMp3Settings settings)
         {
-            this.UpdateMp3Tag = updateMp3Tag;
-            this.Convert(sourceFolder, targetFolder);
+            this.ConversionOptions = settings;
         }
 
         public void Convert(string sourceRoot, string targetRoot)
@@ -203,7 +211,8 @@ namespace Modules.FolderConverter
 
         public void Convert(Mp3Folders model)
         {
-            this.Convert(model.FolderFrom, model.FolderTo, model.ProcessTags);
+            var settings = model.Settings;
+            this.Convert(model.Settings);
         }
     }
 }

@@ -146,7 +146,7 @@ namespace Modules.CharConverter
                 if (source.ToCharArray()[0] == 1110)
                     return "i";
                 else
-                    if (_iso.ContainsKey(System.Convert.ToChar(source)))
+                    if (_iso.ContainsKey(System.Convert.ToChar(source)))//iso coding convertion
                         return GetLatin(_iso[System.Convert.ToChar(source)].ToString());
                     else
                         return source;

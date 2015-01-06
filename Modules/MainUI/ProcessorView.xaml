@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:converters="clr-namespace:Mp3.Infrastructure.Converters;assembly=Mp3.Infrastructure"
+             xmlns:converters="clr-namespace:Mp3.Infrastructure.Converters;assembly=Mp3.Infrastructure" 
              >
     <UserControl.Resources>
         <converters:BoolToString x:Key="boolToString" />
@@ -24,15 +24,13 @@
                 </Border>
             </Border>
         </ControlTemplate>
-        <!--<Style TargetType="{x:Type Button}">
-            <Setter Property="Control.Template" Value="{StaticResource BlueButtonTemplate}" />
-        </Style>-->
     </UserControl.Resources>
     <Grid Style="{StaticResource ProcessorStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -40,18 +38,22 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" >Source Folder</Label>
         <Label Grid.Row="1" Grid.Column="0" >Target Folder</Label>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
             <TextBox Text="{Binding Path=FolderFrom,Mode=TwoWay}" IsEnabled="{Binding Path=FolderFromEnabled}" Width="250" />
             <Button Content="..." Width="30" Command="{Binding Path=SourceFolder}" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
             <TextBox Text="{Binding Path=FolderTo}" IsEnabled="{Binding Path=FolderToEnabled}" Width="250" />
             <Button Content="..." Width="30" Command="{Binding Path=TargetFolder}" />
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
-            <CheckBox  Grid.Column="0" Margin="0,5,0,0" IsChecked="{Binding Path=ShowLog}" >Show Log</CheckBox>
-            <CheckBox  Grid.Column="1" Margin="10,5,0,0" IsChecked="{Binding Path=ProcessTags}">Update Tag</CheckBox>
-            <Button Content="Update Mp3 Files" Margin="10,0,0,5" Command="{Binding Path=Update}" />
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,10,0,0">
+            <CheckBox ToolTip="Show Log Information"  Grid.Column="0" Margin="0,5,0,0" IsChecked="{Binding Path=ShowLog}" >Show Log</CheckBox>
+            <CheckBox ToolTip="Update Tags" Grid.Column="1" Margin="10,5,0,0" IsChecked="{Binding Path=ProcessTags}">Update Tag</CheckBox>
         </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="10,10,0,5">
+            <CheckBox ToolTip="Delete User Defined fields" Grid.Column="1" Margin="0,5,0,0" IsChecked="{Binding Path=StripUserDefs}">Delete User's Tags</CheckBox>
+            <CheckBox ToolTip="Delete CopyRight Information" Grid.Column="1" Margin="10,5,0,0" IsChecked="{Binding Path=DelCopyRight}">Delete CopyRight</CheckBox>
+        </StackPanel>
+        <Button Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Margin="0,10,0,5" HorizontalAlignment="Left" Content="Process Mp3 Files" Command="{Binding Path=Update}" Width="100" Height="50" />
     </Grid>
 </UserControl>

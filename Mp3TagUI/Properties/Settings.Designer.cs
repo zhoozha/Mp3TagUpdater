@@ -25,7 +25,7 @@ namespace Mp3TagUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowLog {
             get {
                 return ((bool)(this["ShowLog"]));
@@ -68,6 +68,30 @@ namespace Mp3TagUI.Properties {
             }
             set {
                 this["FolderTo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DelUserTags {
+            get {
+                return ((bool)(this["DelUserTags"]));
+            }
+            set {
+                this["DelUserTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DelCopyRight {
+            get {
+                return ((bool)(this["DelCopyRight"]));
+            }
+            set {
+                this["DelCopyRight"] = value;
             }
         }
     }

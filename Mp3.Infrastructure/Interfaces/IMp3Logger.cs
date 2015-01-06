@@ -10,6 +10,7 @@ namespace Mp3.Infrastructure.Interfaces
     public interface IMp3Logger : ILoggerFacade
     {
         event EventHandler LogEvent;
+        event EventHandler ShowLogEvent;
         bool ShowLog { get; set; }
         void Log(string message);
         void Debug(string message);

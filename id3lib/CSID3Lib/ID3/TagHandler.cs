@@ -7,6 +7,7 @@ namespace Id3Lib
     using System.Diagnostics;
     using System.Drawing;
     using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Reduce the compexity the tag model to a simple interface
@@ -329,6 +330,73 @@ namespace Id3Lib
             }
         }
 
+        public string AlbumArtist
+        {
+            get
+            {
+                return GetTextFrame("TPE2");
+            }
+            set
+            {
+                SetTextFrame("TPE2", value);
+            }
+        }
+
+        public string CopyRight
+        {
+            get
+            {
+                return GetTextFrame("TCOP");
+            }
+            set
+            {
+                SetTextFrame("TCOP", value);
+            }
+        }
+
+        public IEnumerable<FrameTextUserDef> UserDefined
+        {
+            get
+            {
+                var frames = new List<FrameTextUserDef>();
+                foreach (var item in _frameModel)
+                {
+
+                    if (!(item is FrameTextUserDef))
+                        continue;
+                    frames.Add(item as FrameTextUserDef);
+                }
+                return frames;
+            }
+            set
+            {
+                if (null == value)//clear userdefs
+                {
+                    var frames = this.UserDefined;
+                    foreach (var item in frames)
+                    {
+                        _frameModel.Remove(item);
+                    }
+                    return;
+                }
+                var uframes = new Dictionary<string,FrameTextUserDef>();
+                //update frames
+                foreach (var item in _frameModel)
+                {
+                    var frame = item as FrameTextUserDef;
+                    if (null == frame)
+                        continue;
+                    uframes.Add(frame.Description, frame);
+                }
+                foreach (var item in value)
+                {
+                    if (uframes.ContainsKey(item.Description))
+                        uframes[item.Description].Text = item.Text;
+                    else
+                        _frameModel.Add(item);
+                }
+            }
+        }
         #endregion
 
         #region Methods

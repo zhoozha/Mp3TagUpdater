@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ShowLog" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ProcessTags" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -13,6 +13,12 @@
     </Setting>
     <Setting Name="FolderTo" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DelUserTags" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DelCopyRight" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

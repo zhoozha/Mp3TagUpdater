@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -30,6 +32,7 @@ namespace LogUI
         {
             _logger = logger as IMp3Logger;
             _logger.LogEvent += _logger_LogEvent;
+            _logger.ShowLogEvent += _logger_ShowLogEvent;
             _logClearCommand = new DelegateCommand(this.ClearLog, this.CanClearLog);
             _logSaveCommand = new DelegateCommand(SaveLog, CanSaveLog);
             LogMessage = new ObservableCollection<Mp3LoggerEventArgs>();
@@ -84,10 +87,8 @@ namespace LogUI
         void _logger_LogEvent(object sender, EventArgs e)
         {
             var args = e as Mp3LoggerEventArgs;
-            if (null == e)
-            {
+            if (null == args)
                 return;
-            }
             _message.Add(args);
             System.Windows.Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
@@ -99,6 +100,22 @@ namespace LogUI
             }));
         }
 
+
+        void _logger_ShowLogEvent(object sender, EventArgs e)
+        {
+            var args = e as Mp3ShowLogEventArgs;
+            if (null == e)
+                return;
+            this.ShowUI = args.ShowLog;
+        }
+
+        public bool ShowUI
+        {
+            get { return _logger.ShowLog; }
+            set { OnPropertyChanged("ShowUI"); OnPropertyChanged("Height"); }
+        }
+
         public ObservableCollection<Mp3LoggerEventArgs> LogMessage { get; set; }
+
     }
 }

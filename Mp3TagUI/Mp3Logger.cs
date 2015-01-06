@@ -25,6 +25,7 @@ namespace Mp3TagUI
     public class Mp3Logger : IMp3Logger
     {
         public event EventHandler LogEvent;
+        public event EventHandler ShowLogEvent;
         bool _showLog = true;
 
         public void Log(string message, Category category, Priority priority)
@@ -42,7 +43,6 @@ namespace Mp3TagUI
             this.Log(message, Category.Info, Priority.None);
         }
 
-
         public bool ShowLog
         {
             get
@@ -52,6 +52,8 @@ namespace Mp3TagUI
             set
             {
                 _showLog = value;
+                if (ShowLogEvent != null)
+                    ShowLogEvent(this, new Mp3ShowLogEventArgs(value));
             }
         }
 

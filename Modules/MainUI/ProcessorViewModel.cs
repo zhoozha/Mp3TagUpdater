@@ -54,10 +54,13 @@ namespace MainUI
                 {
                     Execute = () =>
                     {
-                        evnt.Lock();
-                        var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
-                        evnt.Unlock();
-                        return ret;
+                        using (var e = evnt.Disposer())
+                        {
+                            evnt.Lock();
+                            var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
+                            evnt.Unlock();
+                            return ret;
+                        }
                     },
                     CanExecuteMethod = () =>
                     {
@@ -71,10 +74,13 @@ namespace MainUI
                 {
                     Execute = () =>
                     {
-                        evnt.Lock();
-                        var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
-                        evnt.Unlock();
-                        return ret;
+                        using (var e = evnt.Disposer())
+                        {
+                            evnt.Lock();
+                            var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
+                            evnt.Unlock();
+                            return ret;
+                        }
                     },
                     CanExecuteMethod = () =>
                     {
@@ -88,10 +94,13 @@ namespace MainUI
                 {
                     ExecuteAsync = async () =>
                     {
-                        evnt.Lock();
-                        var action = await this.UpdateAction(_model);
-                        evnt.Unlock();
-                        return action;
+                        using (var e = evnt.Disposer())
+                        {
+                            evnt.Lock();
+                            var action = await this.UpdateAction(_model);
+                            evnt.Unlock();
+                            return action;
+                        }
                     },
                     CanExecuteMethod = () =>
                     {
@@ -182,12 +191,12 @@ namespace MainUI
         {
             get
             {
-                return _model.FolderFrom;
+                return _model.Settings.FolderFrom;
             }
             set
             {
                 if (value == null || value.Length == 0 || Directory.Exists(value))
-                    _model.FolderFrom = value;
+                    _model.Settings.FolderFrom = value;
 
                 this.OnPropertyChanged("FolderFrom");
                 EvaluateCanExecute();
@@ -198,12 +207,12 @@ namespace MainUI
         {
             get
             {
-                return _model.FolderTo;
+                return _model.Settings.FolderTo;
             }
             set
             {
                 if (value == null || value.Length == 0 || Directory.Exists(value))
-                    _model.FolderTo = value;
+                    _model.Settings.FolderTo = value;
 
                 this.OnPropertyChanged("FolderTo");
                 EvaluateCanExecute();
@@ -214,11 +223,11 @@ namespace MainUI
         {
             get
             {
-                return _model.ProcessTags;
+                return _model.Settings.ProcessTags;
             }
             set
             {
-                _model.ProcessTags = value;
+                _model.Settings.ProcessTags = value;
                 this.OnPropertyChanged("ProcessTags");
             }
         }
@@ -233,6 +242,32 @@ namespace MainUI
             {
                 _logger.ShowLog = value;
                 this.OnPropertyChanged("ShowLog");
+            }
+        }
+
+        public bool StripUserDefs
+        {
+            get
+            {
+                return _model.Settings.DelUserTags;
+            }
+            set
+            {
+                _model.Settings.DelUserTags = value;
+                this.OnPropertyChanged("StripUserDefs");
+            }
+        }
+
+        public bool DelCopyRight
+        {
+            get
+            {
+                return _model.Settings.DelCopyRight;
+            }
+            set
+            {
+                _model.Settings.DelCopyRight = value;
+                this.OnPropertyChanged("DelCopyRight");
             }
         }
         #endregion

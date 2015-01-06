@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +21,18 @@ namespace Mp3TagUI
 {
     public class UILock : IUILock
     {
-
+        private class DisposeLock : IDisposable
+        {
+            UILock _lock;
+            public DisposeLock(UILock uiLock)
+            {
+                _lock = uiLock;
+            }
+            public void Dispose()
+            {
+                _lock.Unlock();
+            }
+        }
         public event EventHandler<bool> OnUILock;
 
         public void Lock()
@@ -39,6 +48,12 @@ namespace Mp3TagUI
                 return;
             OnUILock(this, false);
         }
+
+        public IDisposable Disposer()
+        {
+            return new DisposeLock(this);
+        }
+
     }
 
     public class Bootstrapper : UnityBootstrapper

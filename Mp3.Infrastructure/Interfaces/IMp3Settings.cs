@@ -12,6 +12,8 @@ namespace Mp3.Infrastructure.Interfaces
         string FolderTo { get; set; }
         bool ProcessTags { get; set; }
         bool ShowLog { get; set; }
+        bool DelUserTags { get; set; }
+        bool DelCopyRight { get; set; }
         void Read();
         void Save();
     }

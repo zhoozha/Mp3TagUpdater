@@ -60,6 +60,29 @@ namespace Mp3TagUI
             }
         }
 
+        public bool DelUserTags 
+        {
+            get
+            {
+                return _settings.DelUserTags;
+            }
+            set
+            {
+                _settings.DelUserTags = value;
+            }
+        }
+        public bool DelCopyRight 
+        {
+            get
+            {
+                return _settings.DelCopyRight;
+            }
+            set
+            {
+                _settings.DelCopyRight = value;
+            }
+        }
+
         public void Read()
         {
             _settings.Reload();

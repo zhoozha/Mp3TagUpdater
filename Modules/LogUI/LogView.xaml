@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Mp3.Infrastructure;assembly=Mp3.Infrastructure"             
              xmlns:category="clr-namespace:Microsoft.Practices.Prism.Logging;assembly=Microsoft.Practices.Prism.Composition"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <vm:BoolToVisibilityConverter x:Key="BoolToVisible" />
         <DataTemplate x:Key="LogTemplate">
             <StackPanel>
                 <TextBlock Name="message" Text="{Binding Path=Message}" />
@@ -16,7 +18,7 @@
                     <DataTrigger.Value>
                         <category:Category>Debug</category:Category>
                     </DataTrigger.Value>
-                    <Setter TargetName="message" Property="Foreground" Value="Aqua" /> 
+                    <Setter TargetName="message" Property="Foreground" Value="Aqua" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Category}">
                     <DataTrigger.Value>
@@ -39,7 +41,7 @@
             </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid >
+    <Grid Visibility="{Binding Path=ShowUI,Converter={StaticResource BoolToVisible}}" >
         <Grid.RowDefinitions >
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -51,7 +53,7 @@
             <Label Grid.Row="0" Background="{x:Null}">Log messages:</Label>
             <Button Content="Clear Log" Margin="10,5,0,5" Command="{Binding Path=ClearCommand}" />
             <Button Content="Save Log" Margin="10,5,0,5" Command="{Binding Path=SaveCommand}" />
-        </StackPanel>        
+        </StackPanel>
         <Border Grid.Column="0" Grid.Row="1" BorderThickness="3" Background="Green" CornerRadius="5">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
                 <ListBox ItemsSource="{Binding Path=LogMessage}" ItemTemplate="{StaticResource LogTemplate}"/>
