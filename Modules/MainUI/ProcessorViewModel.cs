@@ -54,12 +54,19 @@ namespace MainUI
                 {
                     Execute = () =>
                     {
-                        using (var e = evnt.Disposer())
+                        try
                         {
-                            evnt.Lock();
-                            var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
-                            evnt.Unlock();
-                            return ret;
+                            using (var e = evnt.Disposer())
+                            {
+                                evnt.Lock();
+                                var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
+                                evnt.Unlock();
+                                return ret;
+                            }
+                        }
+                        catch
+                        {
+                            return null;
                         }
                     },
                     CanExecuteMethod = () =>
@@ -74,12 +81,19 @@ namespace MainUI
                 {
                     Execute = () =>
                     {
-                        using (var e = evnt.Disposer())
+                        try
                         {
-                            evnt.Lock();
-                            var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
-                            evnt.Unlock();
-                            return ret;
+                            using (var e = evnt.Disposer())
+                            {
+                                evnt.Lock();
+                                var ret = this.ExecutedAction("Select source directory where files will be taken for conversion from");
+                                evnt.Unlock();
+                                return ret;
+                            }
+                        }
+                        catch
+                        {
+                            return null;
                         }
                     },
                     CanExecuteMethod = () =>
@@ -94,12 +108,19 @@ namespace MainUI
                 {
                     ExecuteAsync = async () =>
                     {
-                        using (var e = evnt.Disposer())
+                        try
                         {
-                            evnt.Lock();
-                            var action = await this.UpdateAction(_model);
-                            evnt.Unlock();
-                            return action;
+                            using (var e = evnt.Disposer())
+                            {
+                                evnt.Lock();
+                                var action = await this.UpdateAction(_model);
+                                evnt.Unlock();
+                                return action;
+                            }
+                        }
+                        catch
+                        {
+                            return null;
                         }
                     },
                     CanExecuteMethod = () =>
